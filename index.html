@@ -7,6 +7,7 @@
 
     <style>
         body {
+            background-color: #ffe6e9;
             margin: 0;
             height: 100vh;
             font-family: Arial, sans-serif;
@@ -15,23 +16,6 @@
             align-items: center;
             text-align: center;
             overflow: hidden;
-        }
-
-        /* TŁO */
-        .background {
-            position: fixed;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            transition: opacity 1s ease-in-out;
-            z-index: -2;
-        }
-
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(255, 230, 233, 0.75);
-            z-index: -1;
         }
 
         h1 {
@@ -52,7 +36,6 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: transform 0.15s ease, font-size 0.15s;
         }
 
         #yesBtn {
@@ -65,10 +48,6 @@
             color: white;
         }
 
-        button:hover {
-            transform: scale(1.05);
-        }
-
         #message {
             margin-top: 2rem;
             font-size: 1.4rem;
@@ -76,14 +55,29 @@
             color: #d6336c;
             min-height: 2em;
         }
+
+        /* MAŁE ZDJĘCIA */
+        .floating-img {
+            position: absolute;
+            width: 120px;
+            opacity: 0.85;
+            transition: all 1.5s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+        }
     </style>
 </head>
 <body>
 
-    <div class="background" id="bg"></div>
-    <div class="overlay"></div>
+    <img src="kotki.jpg" class="floating-img" id="img1">
+    <img src="paulinka.jpg" class="floating-img" id="img2">
 
-    <div>
+    <div class="container">
         <h1>Czy zostaniesz moją Walentynką? 💖</h1>
 
         <div class="buttons">
@@ -95,62 +89,58 @@
     </div>
 
     <script>
-        const bg = document.getElementById("bg");
-        const yesBtn = document.getElementById("yesBtn");
-        const noBtn = document.getElementById("noBtn");
-        const message = document.getElementById("message");
-
-        const backgrounds = [
-            "kotki.jpg",
-            "paulinka.jpg"
+        const images = [
+            document.getElementById("img1"),
+            document.getElementById("img2")
         ];
 
-        let bgIndex = 0;
-        bg.style.backgroundImage = `url(${backgrounds[0]})`;
+        function randomPosition(img) {
+            const maxX = window.innerWidth - img.offsetWidth;
+            const maxY = window.innerHeight - img.offsetHeight;
 
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+
+            img.style.left = x + "px";
+            img.style.top = y + "px";
+        }
+
+        // ustaw losowe pozycje na start
+        images.forEach(img => randomPosition(img));
+
+        // zmieniaj pozycje co 4 sekundy
         setInterval(() => {
-            bg.style.opacity = 0;
-            setTimeout(() => {
-                bgIndex = (bgIndex + 1) % backgrounds.length;
-                bg.style.backgroundImage = `url(${backgrounds[bgIndex]})`;
-                bg.style.opacity = 1;
-            }, 1000);
-        }, 5000);
+            images.forEach(img => randomPosition(img));
+        }, 4000);
 
         const noTexts = [
             "Na pewno? 🥺",
-            "Ej no… spójrz na to tło 😳",
-            "Te kotki nie mogą się mylić 🐱❤️",
-            "Serio klikasz NIE przy TAKIM tle?",
-            "To już jest romantyczna presja 😏",
-            "Twoje serce mówi TAK",
-            "Jeszcze jedno kliknięcie…",
+            "Popatrz jakie słodkie zdjęcia 😳",
+            "One są po twojej stronie 🐱❤️",
+            "Kliknięcie NIE przy tym to zbrodnia 😤",
             "Dobra, wystarczy, kliknij TAK 😌"
         ];
 
         let noClickCount = 0;
 
+        const yesBtn = document.getElementById("yesBtn");
+        const noBtn = document.getElementById("noBtn");
+        const message = document.getElementById("message");
+
         noBtn.addEventListener("click", () => {
             message.textContent = noTexts[noClickCount % noTexts.length];
             noClickCount++;
 
-            const yesSize = parseFloat(getComputedStyle(yesBtn).fontSize);
-            yesBtn.style.fontSize = (yesSize + 4) + "px";
-
-            const noSize = parseFloat(getComputedStyle(noBtn).fontSize);
-            if (noSize > 10) {
-                noBtn.style.fontSize = (noSize - 2) + "px";
-            }
+            const size = parseFloat(getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (size + 4) + "px";
         });
 
         yesBtn.addEventListener("click", () => {
-            message.textContent = "WIEDZIAŁEM 🥰💘 Najlepsza decyzja!";
-            yesBtn.disabled = true;
+            message.textContent = "WIEDZIAŁEM 🥰💘";
             noBtn.style.display = "none";
+            yesBtn.disabled = true;
         });
     </script>
 
 </body>
 </html>
-
-
