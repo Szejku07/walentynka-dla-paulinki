@@ -58,13 +58,17 @@
 
         /* MAŁE ZDJĘCIA */
         .floating-img {
-            position: absolute;
-            width: 120px;
-            opacity: 0.85;
-            transition: all 1.5s ease;
-            pointer-events: none;
-            z-index: 0;
-        }
+    position: fixed;
+    width: 120px !important;
+    height: auto !important;
+    max-width: 120px !important;
+    max-height: 120px !important;
+    object-fit: contain;
+    opacity: 0.85;
+    pointer-events: none;
+    z-index: 1;
+}
+
 
         .container {
             position: relative;
