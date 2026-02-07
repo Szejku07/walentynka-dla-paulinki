@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paulinka czy zostaniesz moją Walentynką?</title>
+  <title>Czy zostaniesz moją Walentynką?</title>
+
   <style>
     body {
       margin: 0;
@@ -15,17 +16,19 @@
       flex-direction: column;
       justify-content: center;
       height: 100vh;
-      color: #333;
+      overflow: hidden;
     }
+
+    h1, button, img.main {
+      z-index: 2;
+      position: relative;
+    }
+
     h1 {
-      font-size: 2.8em;
-      margin-bottom: 20px;
+      font-size: 2.6em;
       color: #b30059;
     }
-    img {
-      max-width: 250px;
-      margin-bottom: 25px;
-    }
+
     .btn {
       font-size: 1.3em;
       padding: 12px 24px;
@@ -36,43 +39,83 @@
       font-weight: bold;
       transition: 0.25s;
     }
+
     .btn-tak {
       background: #ff4d94;
       color: white;
     }
+
     .btn-nie {
       background: #999;
       color: white;
     }
+
     .btn:hover {
       transform: scale(1.1);
     }
+
+    /* 🖼️ LATAJĄCE ZDJĘCIA */
+    .floating {
+      position: absolute;
+      width: 120px;
+      opacity: 0.8;
+      animation: float linear infinite;
+      z-index: 1;
+      border-radius: 12px;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(110vh) rotate(0deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-20vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
+
 <body>
 
-  <img src="https://media.tenor.com/images/6f1ca343fbdf52e0b3a2bfa7c8c64143/tenor.gif" alt="Serce">
-  <h1>Paulinka czy zostaniesz moją Walentynką?🥺</h1>
+  <h1>Paulinko 💖<br>Czy zostaniesz moją Walentynką?</h1>
 
   <button class="btn btn-tak" onclick="pokazTak()">Tak ❤️</button>
-  <button class="btn btn-nie" onclick="przesunPrzycisk(this)">Nie 😢</button>
+  <button class="btn btn-nie" onclick="uciekaj(this)">Nie 😢</button>
 
   <script>
     function pokazTak() {
       document.body.innerHTML = `
-        <h1>YAAAAAYYYYYY HEPI DAWIDEK!🥹❤️</h1>
-        <p>Kocham cie skarbie najmocniej na świecie❤️😘!</p>
-        <img src="https://media.tenor.com/images/4df8e56763dbb9c925e48516a03973f5/tenor.gif" alt="Happy heart">
+        <h1>Dziękuję Ci 💘</h1>
+        <p>Jesteś najpiękniejszą Walentynką na świecie ❤️</p>
+        <img src="kotki.jpg" style="width:250px;border-radius:16px;">
       `;
     }
 
-    function przesunPrzycisk(btn) {
-      let x = Math.random() * (window.innerWidth - btn.offsetWidth);
-      let y = Math.random() * (window.innerHeight - btn.offsetHeight);
+    function uciekaj(btn) {
       btn.style.position = "absolute";
-      btn.style.left = x + "px";
-      btn.style.top = y + "px";
+      btn.style.left = Math.random() * (window.innerWidth - btn.offsetWidth) + "px";
+      btn.style.top = Math.random() * (window.innerHeight - btn.offsetHeight) + "px";
     }
+
+    const images = ["paulinka.jpg", "kotki.jpg"];
+
+    function spawnImage() {
+      const img = document.createElement("img");
+      img.src = images[Math.floor(Math.random() * images.length)];
+      img.className = "floating";
+      img.style.left = Math.random() * 100 + "vw";
+      img.style.animationDuration = Math.random() * 6 + 6 + "s";
+      document.body.appendChild(img);
+
+      setTimeout(() => img.remove(), 12000);
+    }
+
+    setInterval(spawnImage, 2000);
   </script>
 
 </body>
