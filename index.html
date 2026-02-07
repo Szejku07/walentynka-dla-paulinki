@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Tapeta ze zdjęciami - Walentynki</title>
+<title>Walentykowa strona</title>
 <style>
   body {
     margin: 0;
@@ -14,26 +14,7 @@
     align-items: center;
     text-align: center;
     background-color: #ffe6e9;
-
-    /* TAPETA ZE ZDJĘĆ - wielkość około 65x65 px */
-    background-image:
-      url("kotki.jpg"),
-      url("paulinka.jpg");
-    background-repeat: repeat, repeat;
-    background-size:
-      65px 65px,
-      65px 65px;
-    background-position:
-      0 0,
-      32.5px 32.5px; /* przesunięcie o połowę, dla wzoru "po przekątnej" */
-  }
-
-  /* overlay dla czytelności tekstu */
-  .overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(255, 230, 233, 0.85);
-    z-index: 0;
+    overflow: hidden;
   }
 
   .container {
@@ -85,11 +66,18 @@
     color: #d6336c;
     min-height: 2em;
   }
+
+  /* Małe zdjęcia w tle */
+  .floating-img {
+    position: fixed;
+    width: 65px;  /* wielkość jak serduszka */
+    height: auto;
+    pointer-events: none;
+    z-index: 0;
+  }
 </style>
 </head>
 <body>
-
-<div class="overlay"></div>
 
 <div class="container">
   <h1>Czy zostaniesz moją Walentynką? 💖</h1>
@@ -103,16 +91,35 @@
 </div>
 
 <script>
+  // Tło: małe zdjęcia rozmieszczone losowo
+  const imageSources = ["kotki.jpg", "paulinka.jpg"];
+  const imageCount = 8; // ile zdjęć ma być
+  const container = document.body;
+
+  for (let i = 0; i < imageCount; i++) {
+    const img = document.createElement("img");
+    img.src = imageSources[i % imageSources.length];
+    img.className = "floating-img";
+
+    // losowa pozycja w obrębie ekranu
+    const x = Math.random() * (window.innerWidth - 70);
+    const y = Math.random() * (window.innerHeight - 70);
+
+    img.style.left = x + "px";
+    img.style.top = y + "px";
+
+    container.appendChild(img);
+  }
+
+  // Tekst przy klikaniu "Nie"
   const noTexts = [
     "Na pewno? 🥺",
-    "Spójrz na to tło jeszcze raz 😳",
-    "Te zdjęcia mówią wszystko 📸❤️",
-    "Nie wierzę w to NIE 😤",
+    "Popatrz na te zdjęcia 📸❤️",
+    "Nie możesz powiedzieć NIE 😤",
     "Dobra… kliknij TAK 😌"
   ];
 
   let noClickCount = 0;
-
   const yesBtn = document.getElementById("yesBtn");
   const noBtn = document.getElementById("noBtn");
   const message = document.getElementById("message");
