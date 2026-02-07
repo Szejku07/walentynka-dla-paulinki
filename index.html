@@ -1,143 +1,71 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Walentykowa strona</title>
-<style>
-  body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: #ffe6e9;
-    overflow: hidden;
-  }
-
-  .container {
-    position: relative;
-    z-index: 1;
-    padding: 2rem 3rem;
-    border-radius: 20px;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-    color: #d6336c;
-    margin-bottom: 2rem;
-  }
-
-  .buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-  }
-
-  button {
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform 0.15s, font-size 0.15s;
-  }
-
-  button:hover {
-    transform: scale(1.05);
-  }
-
-  #yesBtn {
-    background-color: #ff4d6d;
-    color: white;
-  }
-
-  #noBtn {
-    background-color: #aaa;
-    color: white;
-  }
-
-  #message {
-    margin-top: 2rem;
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #d6336c;
-    min-height: 2em;
-  }
-
-  /* Małe zdjęcia w tle */
-  .floating-img {
-    position: fixed;
-    width: 65px;  /* wielkość jak serduszka */
-    height: auto;
-    pointer-events: none;
-    z-index: 0;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Czy zostaniesz moją Walentynką?</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe6f0;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 30px;
+            color: #ff0066;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #ff6699;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 20px;
+        }
+        .gif {
+            max-width: 300px;
+            margin: 20px auto;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>Czy zostaniesz moją Walentynką? 💖</h1>
+    <!-- GIF na początku -->
+    <img src="cute.mp4" alt="Walentynki" class="gif">
 
-  <div class="buttons">
-    <button id="yesBtn">Tak ❤️</button>
-    <button id="noBtn">Nie 💔</button>
-  </div>
+    <h1>Czy zostaniesz moją Walentynką?</h1>
+    <button id="yesBtn">Tak</button>
+    <button id="noBtn">Nie</button>
 
-  <div id="message"></div>
-</div>
+    <!-- GIF na końcu -->
+    <img src="happy.mp4" alt="Serduszka" class="gif">
 
-<script>
-  // Tło: małe zdjęcia rozmieszczone losowo
-  const imageSources = ["kotki.jpg", "paulinka.jpg"];
-  const imageCount = 8; // ile zdjęć ma być
-  const container = document.body;
+    <script>
+        const yesBtn = document.getElementById("yesBtn");
+        const noBtn = document.getElementById("noBtn");
 
-  for (let i = 0; i < imageCount; i++) {
-    const img = document.createElement("img");
-    img.src = imageSources[i % imageSources.length];
-    img.className = "floating-img";
+        yesBtn.addEventListener("click", function() {
+            alert("Wiedziałem, że powiesz TAK! ❤️");
+        });
 
-    // losowa pozycja w obrębie ekranu
-    const x = Math.random() * (window.innerWidth - 70);
-    const y = Math.random() * (window.innerHeight - 70);
+        const nieOdpowiedzi = [
+            "Szkoda! Może następnym razem 😢",
+            "Nie? Ale przecież jestem taki uroczy 😏",
+            "Och, serce moje pęka 💔",
+            "No cóż… może kawa zamiast Walentynek? ☕",
+            "Nie? A ja już kupiłem czekoladki 🍫",
+            "Trudno, spróbujemy jeszcze raz w przyszłym roku 😉"
+        ];
 
-    img.style.left = x + "px";
-    img.style.top = y + "px";
-
-    container.appendChild(img);
-  }
-
-  // Tekst przy klikaniu "Nie"
-  const noTexts = [
-    "Na pewno? 🥺",
-    "Popatrz na te zdjęcia 📸❤️",
-    "Nie możesz powiedzieć NIE 😤",
-    "Dobra… kliknij TAK 😌"
-  ];
-
-  let noClickCount = 0;
-  const yesBtn = document.getElementById("yesBtn");
-  const noBtn = document.getElementById("noBtn");
-  const message = document.getElementById("message");
-
-  noBtn.addEventListener("click", () => {
-    message.textContent = noTexts[noClickCount % noTexts.length];
-    noClickCount++;
-
-    const size = parseFloat(getComputedStyle(yesBtn).fontSize);
-    yesBtn.style.fontSize = (size + 4) + "px";
-  });
-
-  yesBtn.addEventListener("click", () => {
-    message.textContent = "WIEDZIAŁEM 🥰💘";
-    noBtn.style.display = "none";
-    yesBtn.disabled = true;
-  });
-</script>
+        noBtn.addEventListener("click", function() {
+            const losowyIndex = Math.floor(Math.random() * nieOdpowiedzi.length);
+            alert(nieOdpowiedzi[losowyIndex]);
+        });
+    </script>
 
 </body>
 </html>
