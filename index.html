@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paulinka czy zostaniesz moją Walentynką?</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #ffe6e6;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+      color: #333;
+    }
+    h1 {
+      font-size: 2.8em;
+      margin-bottom: 20px;
+      color: #b30059;
+    }
+    img {
+      max-width: 250px;
+      margin-bottom: 25px;
+    }
+    .btn {
+      font-size: 1.3em;
+      padding: 12px 24px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.25s;
+    }
+    .btn-tak {
+      background: #ff4d94;
+      color: white;
+    }
+    .btn-nie {
+      background: #999;
+      color: white;
+    }
+    .btn:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://media.tenor.com/images/6f1ca343fbdf52e0b3a2bfa7c8c64143/tenor.gif" alt="Serce">
+  <h1>Paulinko 💖<br>Czy zostaniesz moją Walentynką?</h1>
+
+  <button class="btn btn-tak" onclick="pokazTak()">Tak ❤️</button>
+  <button class="btn btn-nie" onclick="przesunPrzycisk(this)">Nie 😢</button>
+
+  <script>
+    function pokazTak() {
+      document.body.innerHTML = `
+        <h1>YAAAAAYYYYYY HEPI DAWIDEK!🥹❤️</h1>
+        <p>Kocham cie skarbie najmocniej na świecie❤️😘!</p>
+        <img src="https://media.tenor.com/images/4df8e56763dbb9c925e48516a03973f5/tenor.gif" alt="Happy heart">
+      `;
+    }
+
+    function przesunPrzycisk(btn) {
+      let x = Math.random() * (window.innerWidth - btn.offsetWidth);
+      let y = Math.random() * (window.innerHeight - btn.offsetHeight);
+      btn.style.position = "absolute";
+      btn.style.left = x + "px";
+      btn.style.top = y + "px";
+    }
+  </script>
+
+</body>
+</html>
