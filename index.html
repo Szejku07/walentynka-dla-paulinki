@@ -17,11 +17,14 @@
       justify-content: center;
       align-items: center;
       gap: 16px;
+      overflow: hidden; /* żeby powiększony przycisk nie przewijał strony */
     }
 
     h1 {
       font-size: 2.5rem;
       margin-bottom: 10px;
+      z-index: 1;
+      position: relative;
     }
 
     .gif {
@@ -29,6 +32,8 @@
       max-width: 80vw;
       border-radius: 16px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      z-index: 1;
+      position: relative;
     }
 
     .buttons {
@@ -36,6 +41,8 @@
       gap: 12px;
       flex-wrap: wrap;
       justify-content: center;
+      z-index: 1;
+      position: relative;
     }
 
     button {
@@ -46,6 +53,8 @@
       border-radius: 999px;
       transition: transform .2s ease, box-shadow .15s ease, background .15s ease;
       box-shadow: 0 6px 16px rgba(0,0,0,.15);
+      position: relative;
+      z-index: 2;
     }
 
     button:hover {
@@ -56,6 +65,7 @@
     #takBtn {
       background-color: #e91e63;
       color: #fff;
+      transition: transform .2s ease;
     }
 
     #nieBtn {
@@ -68,7 +78,6 @@
 
   <h1>Czy zostaniesz moją Walentynką?</h1>
 
-  <!-- Zmień nazwy plików jeśli masz inne -->
   <video class="gif" src="cute.mp4" autoplay loop muted playsinline></video>
 
   <div class="buttons">
@@ -80,6 +89,16 @@
     const takBtn = document.getElementById("takBtn");
     const nieBtn = document.getElementById("nieBtn");
 
+    const odpowiedzi = [
+      "Nie 😢",
+      "Jesteś pewna/pewien?",
+      "Pomyśl jeszcze raz!",
+      "To może inaczej…?",
+      "Nie mów „nie” tak szybko!",
+      "Jeszcze jedno kliknięcie 💌",
+      "Może jednak TAK? 💖"
+    ];
+
     let nieCount = 0;
 
     takBtn.addEventListener("click", () => {
@@ -87,26 +106,23 @@
         <h1>Dziękuję! 🥰</h1>
         <video class="gif" src="happy.mp4" autoplay loop muted playsinline></video>
         <p>Cieszę się, że powiedziałaś/eś TAK! ❤️</p>
-        
+       
       `;
     });
 
     nieBtn.addEventListener("click", () => {
-      const odpowiedzi = [
-        "Nie 😢",
-        "Jesteś pewna/pewien?",
-        "Pomyśl jeszcze raz!",
-        "To może inaczej…?",
-        "Nie mów „nie” tak szybko!",
-        "Jeszcze jedno kliknięcie 💌",
-        "Może jednak TAK? 💖"
-      ];
-
+      // zmiana tekstu cyklicznie
+      nieBtn.textContent = odpowiedzi[nieCount % odpowiedzi.length];
       nieCount++;
-      nieBtn.textContent = odpowiedzi[Math.min(nieCount, odpowiedzi.length - 1)];
 
-      const scale = 1 + nieCount * 0.15;
+      // powiększanie przycisku "Tak" tak, że zasłania wszystko
+      const scale = 1 + nieCount * 0.5; // mocniejsze powiększanie
       takBtn.style.transform = `scale(${scale})`;
+      takBtn.style.position = 'absolute';
+      takBtn.style.top = '50%';
+      takBtn.style.left = '50%';
+      takBtn.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      takBtn.style.zIndex = '999';
     });
   </script>
 
