@@ -37,15 +37,18 @@
       justify-content: center;
     }
     button {
-      cursor: pointer;
-      padding: 12px 24px;
-      font-size: 1.1rem;
-      border: none;
-      border-radius: 999px;
-      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
-      box-shadow: 0 6px 16px rgba(0,0,0,.15);
-    }
-    button:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(0,0,0,.2); }
+    cursor: pointer;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 999px; /* Zaokrągla rogi */
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    box-shadow: 0 6px 16px rgba(0,0,0,.15); /* Subtelny cień */
+  }
+  button:hover {
+    transform: translateY(-1px); /* Efekt "podnoszenia" przy najechaniu */
+    box-shadow: 0 10px 22px rgba(0,0,0,.2);
+  }
     #takBtn { background-color: #e91e63; color: #fff; }
     #nieBtn { background-color: #9e9e9e; color: #fff; }
   </style>
