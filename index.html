@@ -8,16 +8,15 @@
   body {
     font-family: Arial, sans-serif;
     text-align: center;
-    /* Pełnoekranowe tło - możesz podmienić link lub lokalny plik */
-    background: url('wal058.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: #fff;
+    background: #fff0f5;
+    color: #333;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    position: relative;
   }
 
   h1 {
@@ -57,7 +56,7 @@
     box-shadow: 0 6px 16px rgba(0,0,0,.15);
     position: relative;
     z-index: 2;
-    background-color: rgba(233, 30, 99, 0.85); /* półprzezroczysty róż dla przycisków */
+    background-color: rgba(233, 30, 99, 0.85);
     color: #fff;
   }
 
@@ -67,19 +66,41 @@
   }
 
   #takBtn {
-    background-color: rgba(233, 30, 99, 0.85);
     transition: transform 0.2s ease;
   }
 
   #nieBtn {
     background-color: rgba(158, 158, 158, 0.85);
   }
+
+  /* kontener na serduszka */
+  .heart {
+    position: absolute;
+    color: red;
+    font-size: 20px;
+    animation: float 5s linear infinite;
+    z-index: 1;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100px) rotate(360deg);
+      opacity: 0;
+    }
+  }
 </style>
 </head>
 <body>
 
 <h1>Czy zostaniesz moją Walentynką?</h1>
-<video class="gif" src="serce.mp4" autoplay loop muted playsinline></video>
+<video class="gif" src="cute.mp4" autoplay loop muted playsinline></video>
 
 <div class="buttons">
   <button id="takBtn">Tak 💗</button>
@@ -108,13 +129,12 @@ takBtn.addEventListener("click", () => {
     <h1>Dziękuję! 🥰</h1>
     <video class="gif" src="happy.mp4" autoplay loop muted playsinline></video>
     <p>Cieszę się, że powiedziałaś/eś TAK! ❤️</p>
-    
+  
   `;
 });
 
 // Efekt "Nie" - uciekanie i powiększanie "Tak"
 nieBtn.addEventListener("mouseover", () => {
-  // zmiana tekstu cyklicznie
   nieBtn.textContent = odpowiedzi[nieCount % odpowiedzi.length];
   nieCount++;
 
@@ -122,20 +142,4 @@ nieBtn.addEventListener("mouseover", () => {
   const scale = 1 + nieCount * 0.5;
   takBtn.style.transform = `translate(-50%, -50%) scale(${scale})`;
   takBtn.style.position = 'absolute';
-  takBtn.style.top = '50%';
-  takBtn.style.left = '50%';
-  takBtn.style.zIndex = 999;
-
-  // losowa pozycja przycisku "Nie"
-  const maxX = window.innerWidth - nieBtn.offsetWidth;
-  const maxY = window.innerHeight - nieBtn.offsetHeight;
-  const randX = Math.random() * maxX;
-  const randY = Math.random() * maxY;
-  nieBtn.style.position = 'absolute';
-  nieBtn.style.left = `${randX}px`;
-  nieBtn.style.top = `${randY}px`;
-});
-</script>
-
-</body>
-</html>
+  takBtn.style.top =
