@@ -1,105 +1,58 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Czy zostaniesz moją Walentynką?</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: #fff0f5;
-    color: #333;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 2;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-  }
-
-  .gif {
-    width: 220px;
-    max-width: 80vw;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    z-index: 2;
-    position: relative;
-  }
-
-  .buttons {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
-    margin-top: 20px;
-  }
-
-  button {
-    cursor: pointer;
-    padding: 12px 24px;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 999px;
-    transition: transform 0.2s ease, box-shadow 0.15s ease, background 0.15s ease;
-    box-shadow: 0 6px 16px rgba(0,0,0,.15);
-    position: relative;
-    z-index: 2;
-    background-color: rgba(233, 30, 99, 0.85);
-    color: #fff;
-  }
-
-  button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 10px 22px rgba(0,0,0,.2);
-  }
-
-  #takBtn {
-    transition: transform 0.2s ease;
-  }
-
-  #nieBtn {
-    background-color: rgba(158, 158, 158, 0.85);
-  }
-
-  /* kontener na serduszka */
-  .heart {
-    position: absolute;
-    color: red;
-    font-size: 20px;
-    animation: float 5s linear infinite;
-    z-index: 1;
-  }
-
-  @keyframes float {
-    0% {
-      transform: translateY(100vh) rotate(0deg);
-      opacity: 0;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Czy zostaniesz moją Walentynką?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+     background-image: url('wal058.jpg');
+       background-repeat: repeat; 
+       background-color: #ffc0cb;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
     }
-    50% {
-      opacity: 1;
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
     }
-    100% {
-      transform: translateY(-100px) rotate(360deg);
-      opacity: 0;
+    .gif {
+      width: 220px;
+      max-width: 80vw;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     }
-  }
-</style>
+    .buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    button {
+      cursor: pointer;
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 999px;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+      box-shadow: 0 6px 16px rgba(0,0,0,.15);
+    }
+    button:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(0,0,0,.2); }
+    #takBtn { background-color: #e91e63; color: #fff; }
+    #nieBtn { background-color: #9e9e9e; color: #fff; }
+  </style>
 </head>
 <body>
+ <h1>Czy zostaniesz moją Walentynką?</h1>
 
-<h1>Czy zostaniesz moją Walentynką?</h1>
 <video class="gif" src="cute.mp4" autoplay loop muted playsinline></video>
 
 <div class="buttons">
@@ -107,39 +60,36 @@
   <button id="nieBtn">Nie 😢</button>
 </div>
 
-<script>
-const takBtn = document.getElementById("takBtn");
-const nieBtn = document.getElementById("nieBtn");
 
-const odpowiedzi = [
-  "Nie 😢",
-  "Jesteś pewna/pewien?",
-  "Pomyśl jeszcze raz!",
-  "To może inaczej…?",
-  "Nie mów „nie” tak szybko!",
-  "Jeszcze jedno kliknięcie 💌",
-  "Może jednak TAK? 💖"
-];
+  <script>
+    const takBtn = document.getElementById("takBtn");
+    const nieBtn = document.getElementById("nieBtn");
 
-let nieCount = 0;
+    let nieCount = 0;
 
-// Kliknięcie TAK
-takBtn.addEventListener("click", () => {
-  document.body.innerHTML = `
-    <h1>Dziękuję! 🥰</h1>
-    <video class="gif" src="happy.mp4" autoplay loop muted playsinline></video>
-    <p>Cieszę się, że powiedziałaś/eś TAK! ❤️</p>
-  
-  `;
-});
+    takBtn.addEventListener("click", () => {
+      document.body.innerHTML = `
+        <h1>Dziękuję! 🥰</h1>
+       <video class="gif" src="happy.mp4" autoplay loop muted playsinline></video>
+        <p>Cieszę się, że powiedziałaś/eś TAK! ❤️</p>
+        
+      `;
+    });
 
-// Efekt "Nie" - uciekanie i powiększanie "Tak"
-nieBtn.addEventListener("mouseover", () => {
-  nieBtn.textContent = odpowiedzi[nieCount % odpowiedzi.length];
-  nieCount++;
-
-  // powiększanie przycisku "Tak"
-  const scale = 1 + nieCount * 0.5;
-  takBtn.style.transform = `translate(-50%, -50%) scale(${scale})`;
-  takBtn.style.position = 'absolute';
-  takBtn.style.top =
+    nieBtn.addEventListener("click", () => {
+      const odpowiedzi = [
+        "Nie 😢",
+        "Jesteś pewna/pewien?",
+        "Pomyśl jeszcze raz!",
+        "To może inaczej…?",
+        "Nie mów „nie” tak szybko!",
+        "Jeszcze jedno kliknięcie 💌",
+        "Może zechcesz powiedzieć TAK? 💖"
+      ];
+      nieCount++;
+      let tekst = odpowiedzi[Math.min(nieCount, odpowiedzi.length - 1)];
+      nieBtn.textContent = tekst;
+    });
+  </script>
+</body>
+</html>
